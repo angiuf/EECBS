@@ -1,2 +1,14 @@
 .idea
 cmake-*
+bin
+
+CMakeFiles/
+cmake*
+CMakeCache.txt
+Makefile
+
+
+eecbs
+
+results/
+
