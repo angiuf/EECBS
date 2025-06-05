@@ -201,7 +201,7 @@ def parse_paths_output(paths_file_path, num_agents):
 
 def run_eecbs_rtc(map_file, scenario_file, output_csv, paths_file, num_agents, time_limit=60):
     """Run the EECBS executable and return results."""
-    cbs_executable = Path(__file__).parent / "cbs"
+    cbs_executable = Path(__file__).parent / "eecbs"
     
     cmd = [
         str(cbs_executable),
@@ -227,7 +227,7 @@ def run_eecbs_rtc(map_file, scenario_file, output_csv, paths_file, num_agents, t
             stdout_lines = result.stdout.strip().split('\n')
             for line in stdout_lines:
                 # Look for the result line that contains "Optimal" or failure indicators
-                if ':' in line and ('Optimal' in line or 'Suboptimal' in line):
+                if ':' in line and ('Succeed' in line):
                     solution_found = True
                     break
                 elif 'No solution' in line or 'Failed' in line or 'Time limit' in line:
@@ -438,7 +438,7 @@ def run_single_test(dataset_path, map_name, num_agents, test_id, time_limit=60):
 def test_eecbs_rtc():
     """Main testing function for EECBS."""
     # Base paths
-    base_dir = Path(__file__).parent
+    base_dir = Path(__file__).resolve().parent
     project_dir = base_dir.parent.parent
     dataset_path = project_dir / 'baselines/Dataset'
     model_name = "EECBS"
@@ -448,26 +448,26 @@ def test_eecbs_rtc():
         {
             "map_name": "15_15_simple_warehouse",
             "size": 15,
-            "n_tests": 200,
+            "n_tests": 2,
             "list_num_agents": [4, 8, 12, 16, 20, 22]
         },
         {
             "map_name": "50_55_simple_warehouse",
             "size": 50,
-            "n_tests": 20,
-            "list_num_agents": [4, 8, 16, 32, 64, 128],
+            "n_tests": 200,
+            "list_num_agents": [4, 8, 16, 32, 64, 128, 256]
         },
         {
             "map_name": "50_55_long_shelves",
             "size": 50,
             "n_tests": 200,
-            "list_num_agents": [4, 8, 16, 32, 64, 128]
+            "list_num_agents": [4, 8, 16, 32, 64, 128, 256]
         },
         {
             "map_name": "50_55_open_space_warehouse_bottom",
             "size": 50,
             "n_tests": 200,
-            "list_num_agents": [4, 8, 16, 32, 64, 128]
+            "list_num_agents": [4, 8, 16, 32, 64, 128, 256]
         }
     ]
     
